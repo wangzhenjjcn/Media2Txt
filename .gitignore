@@ -1,3 +1,9 @@
+ffmpeg.exe
+
+
+# 输出文件
+/output
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
