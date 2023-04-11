@@ -1,26 +1,23 @@
-"""
-程序主入口
-"""
 from video_converter import convert_to_text
 import os, sys
 
 
 if sys.version_info[0] == 2:
-    from Tkinter import *
-    from tkFont import Font
-    from ttk import *
+    # from Tkinter import *
+    # from tkFont import Font
+    # from ttk import *
     #Usage:showinfo/warning/error,askquestion/okcancel/yesno/retrycancel
-    from tkMessageBox import *
+    # from tkMessageBox import *
     # Usage:f=tkFileDialog.askopenfilename(initialdir='E:/Python')
     import tkFileDialog
-    import tkSimpleDialog
+    # import tkSimpleDialog
 else:  #Python 3.x
-    from tkinter import *
-    from tkinter.font import Font
-    from tkinter.ttk import *
-    from tkinter.messagebox import *
+    # from tkinter import *
+    # from tkinter.font import Font
+    # from tkinter.ttk import *
+    # from tkinter.messagebox import *
     import tkinter.filedialog as tkFileDialog
-    import tkinter.simpledialog as tkSimpleDialog    #askstring()
+    # import tkinter.simpledialog as tkSimpleDialog    #askstring()
 
 
 if __name__ == '__main__':
