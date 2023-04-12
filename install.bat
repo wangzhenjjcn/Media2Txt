@@ -5,8 +5,9 @@ pip install -r %~dp0requirements.txt
 echo install requirements finished!
 echo  
 echo to add PATH  ...
- 
+@pause
 echo check PATH  ...
+@pause
 set "SCRIPT_DIR=%~dp0"
 echo %PATH% | find /i "%SCRIPT_DIR%" > nul
 if %errorlevel% equ 0 (

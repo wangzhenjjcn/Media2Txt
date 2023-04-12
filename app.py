@@ -1,6 +1,7 @@
 from video_converter import convert_to_text
 import os, sys
-
+from video_converter.log_utils import get_logger
+log = get_logger('file_utils')
 
 if sys.version_info[0] == 2:
     # from Tkinter import *
@@ -32,6 +33,7 @@ if __name__ == '__main__':
                 print("文件不存在，请重新选择！")
             print("文件异常，请重新选择！")
         else:
+            log.info('文件>>> %s'%file_path)
             source_media_path =file_path
             convert_to_text(source_media_path=source_media_path)
     except Exception as e:

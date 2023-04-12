@@ -1,7 +1,7 @@
 pip install -r requirements.txt
 pip install pyinstaller
 
-pyinstaller -y -F -w -n MP4toTXT app.py   --noconsole --add-data "ffmpeg.exe;."
+pyinstaller -y -F -w -n MP4toTXT app.py  
 @pause
 @pause
 @pause

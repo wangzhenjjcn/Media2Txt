@@ -12,8 +12,11 @@ def get_file_name_and_extension(file_path):
     :return:
     """
     log.info('获取文件名和扩展 %s' % file_path)
-    (filepath, temp_filename) = os.path.split(file_path)
-    return os.path.splitext(temp_filename)
+    if file_path:
+        (filepath, temp_filename) = os.path.split(file_path)
+        return os.path.splitext(temp_filename)
+    log.error('获取文件名和扩展失败 %s' % file_path)
+    return None
 
 
 def combine_text(from_text_array, target_text_file):

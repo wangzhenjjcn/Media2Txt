@@ -22,23 +22,29 @@ def convert_to_text(source_media_path, output_path='./output'):
             raise BaseException('输入文件不存在')
 
         # 获取文件名作为项目名
+        log.info('获取文件名作为项目名')
         project_name = get_file_name_and_extension(source_media_path)[0]
-
+        log.info(' 项目名:%s'%project_name)
         # 创建输出文件夹
+        log.info('创建输出文件夹')
         output_path = r'./output/' + project_name + '/'
         if not os.path.exists(output_path):
             os.makedirs(output_path)
 
         # 统一预处理文件 转Wav
+        log.info('统一预处理文件 转Wav >%s>>>%s'%(source_media_path, output_path))
         voice_path = convert_media_to_wave(source_media_path, target_folder=output_path)
 
         # 根据音频时长分割，过长的文件无法转换
+        log.info('根据音频时长分割，过长的文件无法转换 >%s>>>%s'%(voice_path, project_name))
         split_file_array = split_voice_file(voice_path, project_name, output_path)
 
         # 批量音频转文字
+        log.info('批量音频转文字')
         text_array = convert_audios_to_text(split_file_array)
 
         # 将文本文件组，合并成一个文档
+        log.info('将文本文件组，合并成一个文档')
         combine_text(text_array, output_path + '/' + project_name + '.txt')
     except Exception as e:
         log.error('视频转文字失败',traceback.format_exc())

@@ -138,24 +138,25 @@ def convert_media_to_wave(source_file, target_folder):
     if source_file is None or len(str(source_file)) == 0:
         raise BaseException('输入文件地址为空')
     elif '.flv'  in source_file.lower():
-        log.debug('FLV转WAV')
+        log.debug('FLV转WAV %s' % source_file)
         return mp3_2_wav(video_2_mp3(source_file, target_folder), target_folder)
     elif '.mp4' in source_file.lower():
-        log.debug('MP4转WAV')
+        log.debug('MP4转WAV %s' % source_file)
         return mp3_2_wav(video_2_mp3(source_file, target_folder), target_folder)
     elif '.m4a' in source_file.lower():
-        log.debug('M4A转WAV')
+        log.debug('M4A转WAV %s' % source_file)
         return trans_m4a_to_wav(source_file, target_folder)
     elif '.mp3' in source_file.lower():
-        log.debug('MP3转WAV')
+        log.debug('MP3转WAV %s' % source_file)
         return mp3_2_wav(source_file, target_folder)
     elif '.wav' in source_file.lower():
-        log.debug('源文件格式为WAV，复制到输出目录下')
+        log.debug('源文件格式为WAV，复制到输出目录下 %s' % source_file)
         (filepath, temp_filename) = os.path.split(source_file)
         target_file = target_folder + temp_filename
         copyfile(source_file, target_file)
         return target_file
     else:
+        log.error('未知文件格式 %s' % source_file)
         raise BaseException('未知文件格式')
 
 
@@ -196,13 +197,22 @@ def video_2_mp3(source_mp4_file, target_folder, jump_exist_file=True):
     """
     log.info("视频转音频 %s" %  source_mp4_file)
     try:
+        if source_mp4_file:
+            log.info("开始转换 %s>>>%s" %(source_mp4_file,target_folder))
+        else:
+            log.error('视频转音频失败%s' %source_mp4_file)
+            return None
         mp3_path = target_folder + get_file_name_and_extension(source_mp4_file)[0] + '.wav'
+        log.info("音频 %s" %  mp3_path)
         if jump_exist_file & os.path.exists(mp3_path):
+            log.info("文件存在 %s" %  source_mp4_file)
             return mp3_path
+        log.info("转换 %s>>>%s" %(source_mp4_file,mp3_path))
         from moviepy.video.io.VideoFileClip import VideoFileClip
         mp4_video = VideoFileClip(source_mp4_file)
         mp4_audio = mp4_video.audio
         mp4_audio.write_audiofile(mp3_path)
+        log.info("转换成功 %s>>>%s" %(source_mp4_file,mp3_path))
         return mp3_path
     except Exception as e:
         log.error('视频转音频失败',e)
